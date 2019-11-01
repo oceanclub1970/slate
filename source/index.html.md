@@ -1,239 +1,817 @@
----
-title: API Reference
+--- 
 
-language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
+title: Fenergo Data Integration Manager API 
 
-toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+language_tabs: 
+   - shell 
 
-includes:
-  - errors
+toc_footers: 
+   - <a href='#'>Sign Up for a Developer Key</a> 
+   - <a href='https://github.com/lavkumarv'>Documentation Powered by lav</a> 
 
-search: true
----
+includes: 
+   - errors 
 
-# Introduction
+search: true 
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+--- 
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+# Introduction 
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+**Version:** 1 
 
-# Authentication
+# /REST/BUSINESSSERVICE/DOCUMENTREQUIREMENT/{DOCREQUIREID}/LEGALENTITY/{LEGALENTITYID}/CASE/{CASEID}/DOCUMENT/{DOCUMENTID}/LINKAGE
+## ***POST*** 
 
-> To authorize, use this code:
+**Summary:** Linking of Document to Document Requirement for a Case.
 
-```ruby
-require 'kittn'
+### HTTP Request 
+`***POST*** /rest/businessService/documentRequirement/{docRequireId}/legalEntity/{legalEntityId}/case/{caseId}/document/{documentId}/linkage` 
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+**Parameters**
 
-```python
-import kittn
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| docRequireId | path | Document Require Id (Updates Status of the Document Requirement). | Yes | integer |
+| legalEntityId | path | Legal Entity ID. | Yes | integer |
+| caseId | path | Case ID | Yes | string |
+| documentId | path | Document ID | Yes | string |
+| linkStatus | query | Link Status 0 = Not Active 1 = Active | Yes | string |
+| rowVersion | query | Row Version [URL Encoded value] | Yes | string |
+| body | body |  | Yes |  |
 
-api = kittn.authorize('meowmeowmeow')
-```
+**Responses**
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
 
-```javascript
-const kittn = require('kittn');
+# /REST/LINKLOOKUP
+## ***POST*** 
 
-let api = kittn.authorize('meowmeowmeow');
-```
+**Summary:** Get Link Lookup Table Data
 
-> Make sure to replace `meowmeowmeow` with your API key.
+### HTTP Request 
+`***POST*** /rest/linkLookup` 
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+**Parameters**
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Version | header | Version of Resource Supplied by Client | No | string |
+| body | body | LookupLink Request Body | Yes |  |
 
-`Authorization: meowmeowmeow`
+**Responses**
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
 
-# Kittens
+# /REST/LOOKUP
+## ***POST*** 
 
-## Get All Kittens
+**Summary:** Get Lookup Table Data
 
-```ruby
-require 'kittn'
+### HTTP Request 
+`***POST*** /rest/lookup` 
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+**Parameters**
 
-```python
-import kittn
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| includeIsInactive | query | Include inactive lookup values in response | No | boolean |
+| Version | header | Version of Resource Supplied by Client | No | string |
+| body | body | Lookup Request Body | Yes |  |
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+**Responses**
 
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
 
-```javascript
-const kittn = require('kittn');
+# /REST/DOCUMENT/{DOCUMENTID}/LEGALENTITY/{LEGALENTITYID}
+## ***DELETE*** 
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
+### HTTP Request 
+`***DELETE*** /rest/document/{documentId}/legalEntity/{legalEntityId}` 
 
-> The above command returns JSON structured like this:
+**Parameters**
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| documentId | path | Document Id | Yes | integer |
+| body | body |  | Yes |  |
 
-This endpoint retrieves all kittens.
+**Responses**
 
-### HTTP Request
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
 
-`GET http://example.com/api/kittens`
+# /REST/DOCUMENT/{DOCUMENTID}/LEGALENTITY/{LEGALENTITYID}/CASE/{CASEID}
+## ***DELETE*** 
 
-### Query Parameters
+### HTTP Request 
+`***DELETE*** /rest/document/{documentId}/legalEntity/{legalEntityId}/case/{caseId}` 
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+**Parameters**
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| documentId | path | Document Id | Yes | integer |
+| caseId | path | Case Id | Yes | integer |
+| taskId | query | Task Id | No | integer |
+| body | body |  | Yes |  |
 
-## Get a Specific Kitten
+**Responses**
 
-```ruby
-require 'kittn'
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+# /REST/CASE/{CASEID}
+## ***GET*** 
 
-```python
-import kittn
+**Summary:** GET Case Metadata
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+### HTTP Request 
+`***GET*** /rest/case/{caseId}` 
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
+**Parameters**
 
-```javascript
-const kittn = require('kittn');
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| caseId | path | Case Id | Yes | integer |
+| legalEntityId | query | Legal Entity Id | Yes | integer |
+| formId | query | Form Id | Yes | string |
+| Editable | query | Editable Flag | No | boolean |
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
+**Responses**
 
-> The above command returns JSON structured like this:
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
 
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
+## ***PUT*** 
 
-This endpoint retrieves a specific kitten.
+**Summary:** Update Case
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+### HTTP Request 
+`***PUT*** /rest/case/{caseId}` 
 
-### HTTP Request
+**Parameters**
 
-`GET http://example.com/kittens/<ID>`
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| caseId | path | Case Id | Yes | integer |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | query | Legal Entity Id | Yes | integer |
+| body | body | Request Body | Yes |  |
 
-### URL Parameters
+**Responses**
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
 
-## Delete a Specific Kitten
+# /REST/LEGALENTITY/{LEGALENTITYID}
+## ***GET*** 
 
-```ruby
-require 'kittn'
+**Summary:** Combined GET Legal Entity Metadata/Only returns data in readonly mode. Cannot update entity without associated process(taskId)
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
+### HTTP Request 
+`***GET*** /rest/legalEntity/{legalEntityId}` 
 
-```python
-import kittn
+**Parameters**
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | string |
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
+**Responses**
 
-```javascript
-const kittn = require('kittn');
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
+## ***POST*** 
 
-> The above command returns JSON structured like this:
+**Summary:** Update Legal Entity and Complete Task
 
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
+### HTTP Request 
+`***POST*** /rest/legalEntity/{legalEntityId}` 
 
-This endpoint deletes a specific kitten.
+**Parameters**
 
-### HTTP Request
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| formId | query | Form Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | integer |
+| group | query | Group | No | boolean |
+| body | body |  | Yes |  |
 
-`DELETE http://example.com/kittens/<ID>`
+**Responses**
 
-### URL Parameters
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+## ***PUT*** 
 
+**Summary:** Update Legal Entity (DO NOT Complete Task)
+
+### HTTP Request 
+`***PUT*** /rest/legalEntity/{legalEntityId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | string |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/ADDRESS
+## ***POST*** 
+
+**Summary:** Create Address
+
+### HTTP Request 
+`***POST*** /rest/legalEntity/{legalEntityId}/address` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| subformId | query | Subform Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | integer |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/ADDRESS/{ADDRESSID}
+## ***GET*** 
+
+**Summary:** GET Address Metadata
+
+### HTTP Request 
+`***GET*** /rest/legalEntity/{legalEntityId}/address/{addressId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| addressId | path | Address Id | Yes | integer |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| subformId | query | Subform Id | No | string |
+| caseId | query | Case Id | No | integer |
+| taskId | query | Task Id | No | integer |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+## ***PUT*** 
+
+**Summary:** Edit Address Subform
+
+### HTTP Request 
+`***PUT*** /rest/legalEntity/{legalEntityId}/address/{addressId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| addressId | path | Address Id | Yes | integer |
+| subformId | query | Subform Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | integer |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+## ***DELETE*** 
+
+**Summary:** Delete Address Subform
+
+### HTTP Request 
+`***DELETE*** /rest/legalEntity/{legalEntityId}/address/{addressId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| addressId | path | Address Id | Yes | integer |
+| subformId | query | Subform Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | integer |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/ASSOCIATION
+## ***POST*** 
+
+**Summary:** Create Association. Only returns data in readonly mode. Cannot update entity without associated process(taskId).
+
+### HTTP Request 
+`***POST*** /rest/legalEntity/{legalEntityId}/association` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| associationId | path | Association Id | Yes | integer |
+| formId | query | Form Id | Yes | string |
+| subformId | query | Subform Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id. Where not specified form will be returned in readOnly. | Yes | integer |
+| tolegalEntityId | query | Legal Entity to Associate to. | Yes | integer |
+| body | body | Request Body | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/ASSOCIATION/{ASSOCIATIONID}
+## ***GET*** 
+
+**Summary:** Get Association Metadata and data. Only returns data in readonly mode. Cannot update entity without associated process(taskId).
+
+### HTTP Request 
+`***GET*** /rest/legalEntity/{legalEntityId}/association/{associationId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| associationId | path | Association Id | Yes | integer |
+| formId | query | Form Id | Yes | string |
+| subformId | query | Subform Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id. Where not specified form will be returned in readOnly. | Yes | integer |
+| tolegalEntityId | query | Legal Entity to Associate to. | Yes | integer |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+## ***PUT*** 
+
+**Summary:** Update Association. Only returns data in readonly mode. Cannot update entity without associated process(taskId).
+
+### HTTP Request 
+`***PUT*** /rest/legalEntity/{legalEntityId}/association/{associationId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| associationId | path | Association Id | Yes | integer |
+| formId | query | Form Id | Yes | string |
+| subformId | query | Subform Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id. Where not specified form will be returned in readOnly. | Yes | integer |
+| tolegalEntityId | query | Legal Entity to Associate to. | Yes | integer |
+| body | body | Request Body | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+## ***DELETE*** 
+
+**Summary:** Remove Association. Only returns data in readonly mode. Cannot update entity without associated process(taskId).
+
+### HTTP Request 
+`***DELETE*** /rest/legalEntity/{legalEntityId}/association/{associationId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| associationId | path | Association Id | Yes | integer |
+| formId | query | Form Id | Yes | string |
+| subformId | query | Subform Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id. Where not specified form will be returned in readOnly. | Yes | integer |
+| tolegalEntityId | query | Legal Entity to Associate to. | Yes | integer |
+| immutable | query | Immutable delete. | Yes | boolean |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/DOCUMENT
+## ***POST*** 
+
+**Summary:** Create Document (This should only be used for fileless documents or where location is supplied)
+
+### HTTP Request 
+`***POST*** /rest/legalEntity/{legalEntityId}/document` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| subformId | query | Subform Id | No | string |
+| caseId | query | Case Id | No | integer |
+| taskId | query | Task Id | No | integer |
+| documentRequirementId | query | Document Requirement Id. Used to link a document to a document requirement | No | integer |
+| legalEntityId | path |  | Yes | string |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/DOCUMENT/{DOCUMENTID}
+## ***GET*** 
+
+**Summary:** GET Document Metadata
+
+### HTTP Request 
+`***GET*** /rest/legalEntity/{legalEntityId}/document/{documentId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| documentId | path | Docuemnt  Id | Yes | integer |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| subformId | query | Subform Id | No | string |
+| caseId | query | Case Id | No | integer |
+| taskId | query | Task Id | No | integer |
+| documentRequirementId | query | DocumentRequirementId Id | No | integer |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/PRODUCT
+## ***POST*** 
+
+**Summary:** Create Product
+
+### HTTP Request 
+`***POST*** /rest/legalEntity/{legalEntityId}/product` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| subformId | query | Subform Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | integer |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/PRODUCT/{PRODUCTID}
+## ***GET*** 
+
+**Summary:** GET Product Metadata
+
+### HTTP Request 
+`***GET*** /rest/legalEntity/{legalEntityId}/product/{productId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| productId | path | Address Id | Yes | integer |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| subformId | query | Subform Id | No | string |
+| caseId | query | Case Id | No | integer |
+| taskId | query | Task Id | No | integer |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+## ***PUT*** 
+
+**Summary:** Edit Product Subform
+
+### HTTP Request 
+`***PUT*** /rest/legalEntity/{legalEntityId}/product/{productId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| productId | path | Product Id | Yes | integer |
+| subformId | query | Subform Id | Yes | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | integer |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/TAXIDENTIFIER
+## ***POST*** 
+
+**Summary:** Create a Tax Id
+
+### HTTP Request 
+`***POST*** /rest/legalEntity/{legalEntityId}/taxIdentifier` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| subformId | query | Subform Id | No | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | integer |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/LEGALENTITY/{LEGALENTITYID}/TAXIDENTIFIER/{TAXIDENTIFIERID}
+## ***GET*** 
+
+**Summary:** GET Tax Id Metadata
+
+### HTTP Request 
+`***GET*** /rest/legalEntity/{legalEntityId}/taxIdentifier/{taxIdentifierId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| taxIdentifierId | path | Tax IdentifierId Id | Yes | integer |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| subformId | query | Subform Id | No | string |
+| caseId | query | Case Id | No | integer |
+| taskId | query | Task Id | No | integer |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+## ***PUT*** 
+
+**Summary:** Update Tax Id
+
+### HTTP Request 
+`***PUT*** /rest/legalEntity/{legalEntityId}/taxIdentifier/{taxIdentifierId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| taxIdentifierId  | path | Legal Entity Id | Yes | integer |
+| subformId | query | Subform Id | No | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | integer |
+| taxIdentifierId | path |  | Yes | string |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+## ***DELETE*** 
+
+**Summary:** Remove Tax Id from Legal Entity
+
+### HTTP Request 
+`***DELETE*** /rest/legalEntity/{legalEntityId}/taxIdentifier/{taxIdentifierId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | query | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| taxIdentifierId  | path | Legal Entity Id | Yes | integer |
+| subformId | query | Subform Id | No | string |
+| caseId | query | Case Id | Yes | integer |
+| taskId | query | Task Id | Yes | integer |
+| taxIdentifierId | path |  | Yes | string |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/FORM/{FORMID}
+## ***GET*** 
+
+**Summary:** Get Metadata for a Static Form (No Data Returned by Default)
+
+### HTTP Request 
+`***GET*** /rest/form/{formId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | path | Form Id | Yes | string |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/FORM/{FORMID}/LEGALENTITY/{LEGALENTITYID}
+## ***GET*** 
+
+**Summary:** GET Legal Entity Metadata (Deprecated)
+
+### HTTP Request 
+`***GET*** /rest/form/{formId}/legalEntity/{legalEntityId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | path | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/FORM/{FORMID}/LEGALENTITY/{LEGALENTITYID}/CASE/{CASEID}/TASK/{TASKID}
+## ***GET*** 
+
+**Summary:** Only returns data in readonly mode. Cannot update entity without associated process(taskId) (Deprecated)
+
+### HTTP Request 
+`***GET*** /rest/form/{formId}/legalEntity/{legalEntityId}/case/{caseId}/task/{taskId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | path | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| caseId | path | Case Id | Yes | integer |
+| taskId | path | Task Id | Yes | string |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+## ***POST*** 
+
+**Summary:** Post Entity Data Values for formId (Deprecated)
+
+### HTTP Request 
+`***POST*** /rest/form/{formId}/legalEntity/{legalEntityId}/case/{caseId}/task/{taskId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | path | formId(context) | Yes | string |
+| legalEntityId | path | legalEntityId | Yes | string |
+| caseId | path | caseId | Yes | string |
+| taskId | path | taskId | Yes | string |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+## ***PUT*** 
+
+**Summary:** Update Legal Entity (DO NOT Complete Task) (Deprecated)
+
+### HTTP Request 
+`***PUT*** /rest/form/{formId}/legalEntity/{legalEntityId}/case/{caseId}/task/{taskId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | path | Form Id | Yes | string |
+| legalEntityId | path | Legal Entity Id | Yes | integer |
+| caseId | path | Case Id | Yes | integer |
+| taskId | path | Task Id | Yes | string |
+| body | body |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+# /REST/FORM/{FORMID}/REFRESH/{CONTEXTID}
+## ***POST*** 
+
+**Summary:** Get refreshed data for a DataGrid (No Metadata)
+
+### HTTP Request 
+`***POST*** /rest/form/{formId}/refresh/{ContextId}` 
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| formId | path | formId | Yes | string |
+| ContextId | path | Context for data to be returned (IE: datagridContext or formId) | Yes | string |
+| body | body | Request Body | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Output type |
+
+<!-- Converted with the swagger-to-slate https://github.com/lavkumarv/swagger-to-slate -->
